@@ -1,0 +1,62 @@
+
+<!doctype html>
+<html lang="en">
+<head th:replace="/fragments/head"></head>
+<body>
+
+<header>
+    <nav th:replace="/fragments/nav ::nav-front"></nav>
+</header>
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div th:replace="/fragments/quickaction"></div>
+        <div class="col"></div>
+        <div class="col-6" >
+            <h3 class="display-4">Create an Account</h3>
+            <form method="post" th:object="${user}" th:action="@{/account}">
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    There are errors
+                </div>
+
+
+                <div class="form-group">
+                    <label for="">Username</label>
+                    <input type="text" class="form-control" th:field="*{username}" placeholder="Username">
+                    <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" class="form-control" th:field="*{password}" >
+                    <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Confirm Password</label>
+                    <input type="password" class="form-control" th:field="*{confirmPassword}" >
+                    <span class="error" th:if="${passwordMatchProblem}">Passwords do not match</span>
+
+                </div>
+                <div class="form-group">
+                    <label for="">Initial Balance </label>
+                    <input type="number" class="form-control" th:field="*{balance}" placeholder="Initial Balance" required>
+                    <span class="error" th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}"></span>
+                </div>
+
+
+
+                <button class="btn btn-danger mt-5">Create Account</button>
+
+
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+<!-- FOOTER -->
+<div th:replace="/fragments/footer"></div>
+
+
+
+</body>
+</html>

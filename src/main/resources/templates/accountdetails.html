@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head th:replace="/fragments/head"></head>
+<body>
+
+<header>
+    <nav th:replace="/fragments/nav ::nav-front"></nav>
+</header>
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div th:replace="/fragments/quickaction"></div>
+        <div class="col"></div>
+        <div class="col-6 text-center" >
+            <h3 class="display-4" th:text="'Hello '+${principal}"></h3>
+
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+<!-- FOOTER -->
+<div th:replace="/fragments/footer"></div>
+
+
+
+</body>
+</html>
