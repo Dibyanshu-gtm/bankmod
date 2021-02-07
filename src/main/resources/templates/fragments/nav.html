@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark" th:fragment="nav-front">
-    <a class="navbar-brand ml-3" href="/">Bank App</a>
+    <a class="navbar-brand " href="/">Bank App</a>
     <button class="navbar-toggler ml-3" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,7 +18,7 @@
         </ul>
 
         <form th:if="${principal !=null}" method="post" th:action="@{/logout}">
-            <span class="text-white" th:text="${'Hi , '+principal}"></span>
+            <span class="text-white" th:text="${'Hi '+loggedinuser.username.substring(0,1).toUpperCase() +loggedinuser.username.substring(1)}"></span>
             <button class="btn btn-secondary">Logout</button>
         </form>
 

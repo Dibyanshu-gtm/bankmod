@@ -3,12 +3,15 @@
     <h3 class="display-4">Quick Action</h3>
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="" class="nav-link" >Deposit</a>
+            <a href="/accountdetails" class="nav-link" > Account Details</a>
         </li>
         <li class="list-group-item">
-            <a href="" class="nav-link">Withdraw</a>
+            <a th:href="@{/accountdetails/deposit/{id}(id=${loggedinuser.id})}" class="nav-link" >Deposit</a>
         </li>
-
+        <li class="list-group-item">
+            <a th:href="@{/accountdetails/withdraw/{id}(id=${loggedinuser.id})}" class="nav-link">Withdraw</a>
+        </li>
+        <li><p ></p></li>
     </ul>
 
 </div>

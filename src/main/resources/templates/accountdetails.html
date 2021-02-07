@@ -12,8 +12,27 @@
         <div th:replace="/fragments/quickaction"></div>
         <div class="col"></div>
         <div class="col-6 text-center" >
-            <h3 class="display-4" th:text="'Hello '+${principal}"></h3>
+            <h3 class="display-4" th:text="'Hello '+${loggedinuser.username.substring(0,1).toUpperCase() +loggedinuser.username.substring(1) }"></h3>
+            <h3 class="display-6">Welcome to a great Banking Experience !</h3>
 
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-6 " >
+            <h6>Your customer ID:   </h6>
+            <h6 class="display-4" th:text="'ID'+${loggedinuser.id}"></h6>
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-6 " >
+            <h6>Your current balance: </h6>
+
+            <h6 class="display-4" th:with="formattedTotal=${loggedinuser.balance}"
+                th:text="'₹ '+${#numbers.formatDecimal(formattedTotal,1,'COMMA',2,'POINT')}"></h6>
         </div>
         <div class="col"></div>
     </div>

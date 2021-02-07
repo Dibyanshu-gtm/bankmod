@@ -10,10 +10,11 @@
 
 <div class="container-fluid mt-5">
     <div class="row">
-        <div th:replace="/fragments/quickaction"></div>
+        <div th:replace="/fragments/quickhome"></div>
         <div class="col"></div>
         <div class="col-6" >
             <h3 class="display-4">Create an Account</h3>
+
             <form method="post" th:object="${user}" th:action="@{/account}">
 
                 <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
