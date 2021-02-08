@@ -1,8 +1,10 @@
 package com.bank.bankmod.controllers;
 
 
+import com.bank.bankmod.models.StandingOrderRepository;
 import com.bank.bankmod.models.TransactionRepository;
 import com.bank.bankmod.models.UserRepository;
+import com.bank.bankmod.models.data.StandingOrder;
 import com.bank.bankmod.models.data.Transaction;
 import com.bank.bankmod.models.data.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/accountdetails")
@@ -25,6 +28,9 @@ public class AccountDetailsController {
 
     @Autowired
     private TransactionRepository transactionRepo;
+
+    @Autowired
+    private StandingOrderRepository standingRepo;
 
     @GetMapping
     public String accountdetails(User user, Model model){
@@ -75,7 +81,9 @@ public class AccountDetailsController {
         //return "deposit";
     }
     @PostMapping("/withdraw/{id}")
-    public String withdraw(@Valid User user,  BindingResult bindingResult,@PathVariable int id, RedirectAttributes redirectAttributes, Model model){
+    public String withdraw(@Valid User user,
+                           BindingResult bindingResult,@PathVariable int id,
+                           RedirectAttributes redirectAttributes, Model model){
 
         User userCurrent=userRepo.getOne(id);
         Transaction transac=new Transaction();
@@ -109,11 +117,6 @@ public class AccountDetailsController {
             userRepo.save(userCurrent);
         }
 
-
-
-
-
-
         return "redirect:/accountdetails/withdraw/"+ id;
 
     }
@@ -130,9 +133,76 @@ public class AccountDetailsController {
         return "operations";
     }
 
+    @GetMapping("/standingorders/{id}")
+    public String standingorders(Model model)
+    {
+        List<StandingOrder> standingorders=standingRepo.findAll();
+        model.addAttribute("standingorders",standingorders);
+
+        return "standingorders" ;
+
+    }
+
+    @GetMapping("/standingorders-add/{id}")
+    public String standingordersadd(@ModelAttribute StandingOrder standingOrder)
+    {
+
+
+        return "standingorders-add" ;
+
+    }
+
+    @PostMapping("/standingorders-add/{id}")
+    public String standingordersadd(@Valid StandingOrder standingOrder, BindingResult bindingResult,
+                                    @PathVariable int id,
+                                    RedirectAttributes redirectAttributes, Model model)
+    {
+        if(bindingResult.hasErrors()){
+            return "standingorders-add";
+        }
+
+        StandingOrder sord=new StandingOrder();
+        User userCredit=userRepo.findById(standingOrder.getCreditorId());
+        User userCurrent=userRepo.getOne(id);
+
+
+        redirectAttributes.addFlashAttribute("message","Standing Order added");
+        redirectAttributes.addFlashAttribute("alertClass","alert-success");
+
+        Integer withdrawalAmount=Integer.parseInt(standingOrder.getAmount());
+        Integer currentAmount=Integer.parseInt(userCurrent.getBalance());
 
 
 
+        if(userCredit==null)
+        {
+            redirectAttributes.addFlashAttribute("message","Account ID given doesn't exist ");
+            redirectAttributes.addFlashAttribute("alertClass","alert-danger");
+
+
+        }
+        else if(withdrawalAmount>currentAmount)
+        {
+            redirectAttributes.addFlashAttribute("message","Insufficient Balance to Carry out the Standing order ");
+            redirectAttributes.addFlashAttribute("alertClass","alert-danger");
+
+
+        }
+        else
+        {
+            //standingOrder.setDebitorId(id);
+            sord.setDebitorId(id);
+            sord.setCreditorId(standingOrder.getCreditorId());
+            sord.setName(standingOrder.getName());
+            sord.setAmount(standingOrder.getAmount());
+            standingRepo.save(sord);
+
+        }
+
+
+        return "redirect:/accountdetails/standingorders-add/"+ id;
+
+    }
 
 
 }
