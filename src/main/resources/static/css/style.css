@@ -5,3 +5,43 @@ span.error{
 .hide{
     display: none;
 }
+td.type.credit{
+    color: lightgreen;
+    font-weight: bold;
+}
+td.type.debit{
+    color: red;
+    font-weight: bold;
+}
+th{
+    color: white;
+}
+td{
+    color:white;
+}
+body{
+    background-image: url('back.jpg');
+    height: 100%;
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size:cover;
+
+}
+h3{
+    color:white;
+}
+h2{
+    color:white;
+}
+div.form-group{
+    color:white;
+}
+p{
+    color:white;
+}
+h6{
+    color:white;
+}
+li.list-group-item{
+    color:black;
+}

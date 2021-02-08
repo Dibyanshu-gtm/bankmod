@@ -1,4 +1,6 @@
-<div class="col-3" th:fragment="quickaction">
+<html>
+<body>
+<div class="menu col-3" th:fragment="quickaction">
 
     <h3 class="display-4">Quick Action</h3>
     <ul class="list-group">
@@ -11,7 +13,11 @@
         <li class="list-group-item">
             <a th:href="@{/accountdetails/withdraw/{id}(id=${loggedinuser.id})}" class="nav-link">Withdraw</a>
         </li>
-        <li><p ></p></li>
+        <li class="list-group-item">
+            <a th:href="@{/accountdetails/operations/{id}(id=${loggedinuser.id})}" class="nav-link">Operation</a>
+        </li>
     </ul>
 
 </div>
+</body>
+</html>

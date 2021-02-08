@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head th:replace="/fragments/head"></head>
+<body>
+
+<header>
+    <nav th:replace="/fragments/nav ::nav-front"></nav>
+</header>
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div th:replace="/fragments/quickaction"></div>
+        <div class="col"></div>
+        <div class="col-6 text-center" >
+            <h3 class="display-4" th:text="'Bank Statement '"></h3>
+
+            <div class="row mt-5">
+                <div th:if="${!transactions.empty}">
+                    <table  class="table " id="transactions">
+                        <tr class="home">
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Balance</th>
+                            <th>Time</th>
+                        </tr>
+                        <tr th:each="transaction: ${transactions}" >
+                            <td  class="type" th:classappend="${transaction.type}=='Credit' ? credit: debit" th:text="${transaction.type}"></td>
+                            <td th:text="${transaction.amount}"></td>
+                            <td th:text="${transaction.balance}"></td>
+                            <td th:text="${transaction.transactionTime}"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div th:unless="${!transactions.empty}">
+
+                    <h4 class="display-4">Nothing to show </h4>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col"></div>
+    </div>
+
+
+</div>
+<!-- FOOTER -->
+<div th:replace="/fragments/footer"></div>
+
+
+
+</body>
+</html>
