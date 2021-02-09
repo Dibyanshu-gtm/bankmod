@@ -134,10 +134,12 @@ public class AccountDetailsController {
     }
 
     @GetMapping("/standingorders/{id}")
-    public String standingorders(Model model)
+    public String standingorders(@PathVariable int id,Model model)
     {
-        List<StandingOrder> standingorders=standingRepo.findAll();
-        model.addAttribute("standingorders",standingorders);
+        List<StandingOrder> standingOrders=standingRepo.findAllByDebitorId(id);
+        System.out.println(standingOrders.size());
+        System.out.println(id);
+        model.addAttribute("standingOrders",standingOrders);
 
         return "standingorders" ;
 
@@ -203,6 +205,22 @@ public class AccountDetailsController {
         return "redirect:/accountdetails/standingorders-add/"+ id;
 
     }
+
+    @GetMapping("/standingorders/delete/{id}")
+    public String delete(@PathVariable int id, RedirectAttributes redirectAttributes){
+
+
+        StandingOrder std=standingRepo.findById(id);
+        int DebitId=std.getDebitorId();
+        standingRepo.deleteById(id);
+        redirectAttributes.addFlashAttribute("message","Standing Order deleted");
+        redirectAttributes.addFlashAttribute("alertClass","alert-success");
+
+
+        return "redirect:/accountdetails/standingorders/"+ DebitId;
+
+    }
+
 
 
 }

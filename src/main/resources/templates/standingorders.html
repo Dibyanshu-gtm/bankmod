@@ -14,10 +14,25 @@
         <div class="col-6 text-center" >
             <h3 class="display-4" th:text="'Standing Orders'"></h3>
             <a th:href="@{/accountdetails/standingorders-add/{id}(id=${loggedinuser.id})}" class="btn btn-primary mb-5">Add new</a>
-            <div th:if="${!standingorders.empty}">
+            <div th:if="${!standingOrders.empty}">
+                    <table class="table" id="standingorders">
 
+                        <tr class="home">
+                            <th>Reason</th>
+                            <th>Benefeciary Account ID</th>
+                            <th>Amount</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tr th:each="standingOrder: ${standingOrders}" >
+                            <td th:text="${standingOrder.name}"></td>
+                            <td th:text="${standingOrder.creditorId}"></td>
+                            <td th:text="${standingOrder.amount}"></td>
+                            <td><a th:href="@{'/accountdetails/standingorders/delete/'+ ${standingOrder.id}}" class="confirmDeletion">Delete</a></td>
+                        </tr>
+
+                    </table>
             </div>
-            <div th:unless="${!standingorders.empty}">
+            <div th:unless="${!standingOrders.empty}">
                 <h4 class="display-6">There are no standing orders</h4>
             </div>
         </div>
