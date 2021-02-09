@@ -28,7 +28,7 @@ public class StandingOrderScheduler {
     @Scheduled(fixedDelay = 60000,initialDelay = 5000)
     public void demo(){
 
-
+        /*
         List<StandingOrder> standingOrders= standingRepo.findAll();
 
         for(StandingOrder std:standingOrders)
@@ -75,7 +75,7 @@ public class StandingOrderScheduler {
 
 
 
-        }
+        }*/
 
 
     }

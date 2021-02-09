@@ -32,9 +32,8 @@ public class AccountControllerTest {
 
     @Test
     public void createAccountTest() throws Exception {
-        User user =new User();
-        user.setUsername("dibyanshu");
-        user.setPassword("root");
+
+
 
         mockMvc.perform(get("/account")).andExpect(status().isOk())
                 .andExpect(view().name("account"));
@@ -42,7 +41,7 @@ public class AccountControllerTest {
 
     @Test
     public void createAccountFormSubmitTest() throws Exception{
-        String username= "Harry";
+        String username= "Harry1";
         String password=  "potter";
         String cpassword="potter";
         String val="0";
@@ -59,6 +58,7 @@ public class AccountControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/login"))
                 .andExpect(redirectedUrl("/login"));
+
 
     }
 
